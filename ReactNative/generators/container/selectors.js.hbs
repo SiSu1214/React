@@ -1,0 +1,29 @@
+/*
+ *
+ * {{ properCase name }} selectors
+ *
+ */
+
+import { createGetSelector } from 'reselect-immutable-helpers';
+import Immutable from 'immutable';
+// import { createSelector } from 'reselect';
+
+/*
+ * Direct selector to the {{ camelCase name }} reducer
+ */
+export const select{{ properCase name }}Reducer = (state) => state.get('{{ camelCase name }}', Immutable.Map());
+
+/*
+ * selector data from {{ camelCase name }}Reducer object
+ */
+export const selectGenerateText = createGetSelector(
+  select{{ properCase name }}Reducer, 'generateText'
+);
+
+/*
+ * Use createSelector to manipulate the data as shown below
+ */
+// export const selectFormatString = createSelector(
+//   selectGenerateText,
+//   (generateText) => generateText
+// );

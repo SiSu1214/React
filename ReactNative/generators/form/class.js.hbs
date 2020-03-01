@@ -1,0 +1,82 @@
+/**
+ *
+ * {{ properCase name }} form file
+ *
+ */
+{{#if wantTransLate}}
+
+/* global translate */
+{{/if}}
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import pick from 'lodash/pick';
+import { reduxForm } from 'redux-form/immutable';
+import { Form } from 'native-base';
+
+import Group from '../formFields';
+
+import styles from './styles';
+
+// Add your formField in this object
+const formFieldsObject = {
+  email: {
+    label: 'email',
+    type: 'textInput',
+    icon: 'person',
+    autoCapitalize: 'none',
+    keyboardType: 'default',
+    maxLength: 11,
+    col: 0.6,
+    validation: { required: true },
+  },
+  password: {
+    label: 'password',
+    type: 'textInput',
+    secureTextEntry: true,
+    icon: 'lock',
+    autoCapitalize: 'none',
+    col: 0.3,
+    validation: { required: true, minLength: 4 },
+  },
+};
+
+class {{ properCase name }} extends {{{ type }}} { // eslint-disable-line
+  render() {
+    const {
+      initialValues, handleSubmit, setRef, ...otherProps
+    } = this.props;
+
+    const formFields = [
+      pick(formFieldsObject, 'email', 'password'),
+    ];
+
+    const data = initialValues ? initialValues.toJS() : {};
+
+    return (
+      <Form style={styles.form} ref={setRef} onSubmit={handleSubmit}>
+        {formFields.map((formField) => (
+          <Group data={data} fieldsObject={formField} key={formField} {...otherProps}/>
+        ))}
+      </Form>
+    );
+  }
+}
+
+{{ properCase name }}.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  setRef: PropTypes.func.isRequired,
+  initialValues: PropTypes.object,
+  initialValid: PropTypes.object,
+};
+
+{{ properCase name }}.defaultProps = {
+  initialValues: null,
+  initialValid: {},
+};
+
+export default reduxForm({
+  form: '{{ camelCase name }}',
+  touchOnChange: true,
+  touchOnBlur: true
+})({{ properCase name }});

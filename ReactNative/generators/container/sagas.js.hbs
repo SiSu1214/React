@@ -1,0 +1,39 @@
+/*
+ *
+ * {{ properCase name }} sagas
+ *
+ */
+
+import {
+  {{#if wantActionsAndReducer}}
+  // takeLatest,
+  {{else}}
+  // takeLatest,
+  {{/if}}
+  // cancel,
+  // call,
+  put,
+} from 'redux-saga/effects';
+
+{{#if wantActionsAndReducer}}
+import { defaultAction } from './actions';
+{{else}}
+// 替换注释文件，并将action填入下方，以确保 sagas 可以正确运行
+// import { defaultAction } from '../sourceFile/actions';
+{{/if}}
+
+export function* defaultSaga() {
+  try {
+    yield put({{#if wantActionsAndReducer}}defaultAction(){{else}}'{{ camelCase name }}'{{/if}});
+    console.log('Good job! Success inject sagas in {{ properCase name }}');
+  } catch (error) {
+    console.log('Opps! There seem to be some problems When we use sagas, please check it');
+  }
+}
+
+export default [
+  {
+    key: '{{ camelCase name }}',
+    saga: defaultSaga,
+  },
+];
